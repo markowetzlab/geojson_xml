@@ -1,0 +1,35 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "id": "PathDetectionObject",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[[42800,2800],[43200,2800],[43200,3200],[42800,3200],[42800,2800]]]
+                },
+            "properties": {
+                "objectType": "annotation",
+                "classification": {
+                    "name": "artifact",
+                    "color": [0,64,255]
+                    }
+                }
+        },
+        {
+            "type": "Feature",
+            "id": "PathDetectionObject",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[[51099.332, 25871.2734],[51081.1445, 25883.9512],[51084.4531, 25905.9961],[51105.3984, 25914.2637],[51099.332, 25871.2734]]]
+                },
+            "properties": {
+                "objectType": "annotation",
+                "classification": {
+                    "name": "unsure",
+                    "color": [178,64,255]
+                    }
+                }
+        }
+    ]
+}

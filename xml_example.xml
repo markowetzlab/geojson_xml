@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<ASAP_Annotations>
+  <Annotations>
+    <Annotation Name="Annotation 0" Type="Polygon" PartOfGroup="aberrant_positive_columnar" Color="#F4FA58">
+      <Coordinates>
+        <Coordinate Order="0" X="44024.9141" Y="41109.6641" />
+        <Coordinate Order="1" X="44129.1289" Y="41071.2695" />
+        <Coordinate Order="2" X="44233.3438" Y="41109.6641" />
+        <Coordinate Order="3" X="44258.0234" Y="41216.6211" />
+      </Coordinates>
+    </Annotation>
+    <Annotation Name="Annotation 1" Type="Polygon" PartOfGroup="unsure" Color="#F4FA58">
+      <Coordinates>
+        <Coordinate Order="0" X="51099.332" Y="25871.2734" />
+        <Coordinate Order="1" X="51081.1445" Y="25883.9512" />
+        <Coordinate Order="2" X="51084.4531" Y="25905.9961" />
+        <Coordinate Order="3" X="51105.3984" Y="25914.2637" />
+      </Coordinates>
+    </Annotation>
+  </Annotations>
+  <AnnotationGroups>
+    <Group Name="aberrant_positive_columnar" PartOfGroup="None" Color="#64FE2E">
+      <Attributes />
+    </Group>
+    <Group Name="unsure" PartOfGroup="None" Color="#64FE2E">
+      <Attributes />
+    </Group>
+  </AnnotationGroups>
+</ASAP_Annotations>
