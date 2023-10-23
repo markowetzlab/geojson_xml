@@ -1,12 +1,13 @@
 # good to check whether label threshold is appropriate
-# python geojson_from_pml_tiles.py -p <pml_file> -g <input_geojson_file> -o <output_geojson_file> -d "<color_dict>"
-# example dictionary: "{'unsure':'#009900', 'aberrant_positive_columnar':'blue', 'unspecific_stain':[255,180,0]}"
+# python geojson_from_pml_tiles.py -p <pml_file> -g <input_geojson_file> -o <output_geojson_file> -d <color_dict>
+# example dictionary: {'unsure':'#009900', 'aberrant_positive_columnar':'blue', 'unspecific_stain':[255,180,0]}
 
 
 import re
 import argparse
 from slidl.slide import Slide
 import geojson
+import ast
 
 # useful functions
 def check_rgb(input_str): # "[0, 255, 178]"
@@ -52,7 +53,7 @@ def name2rgb(colorname): # colorname example: 'blue' # color name must be in col
 parser = argparse.ArgumentParser()
 parser.add_argument('-p',help='pml input filename')
 parser.add_argument('-g',help='geojson input filename')
-parser.add_argument('-d',help='string of dictionary with labels as keys and rgb or hex or color names as values',type=str)
+parser.add_argument('-d',help='dictionary with labels as keys and rgb or hex or color names as values',type=str)
 parser.add_argument('-o',help='geojson output filename')
 parser.add_argument('-l',help='label threshold (how big of a minimal area should the label annotation cover?), floating number between 0 and 1', default=0.001)
 #parser.add_argument('-t',help='tissue threshold, floating number ')
@@ -62,7 +63,7 @@ args = parser.parse_args()
 slidl_slide = Slide(args.p)
 
 # make dictionary of [r,g,b]
-col_dict_messy = eval(args.d)
+col_dict_messy = ast.literal_eval(args.d)
 col_dict_clean = {}
 for key,value in col_dict_messy.items():
     #print(key,value,type(value))

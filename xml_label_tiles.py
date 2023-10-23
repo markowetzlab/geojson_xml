@@ -1,10 +1,11 @@
 # good to check whether label threshold is appropriate
-# python xml_from_pml_tiles.py -p <pml_file> -x <input_xml_file> -s <slide_file> -o <output_xml_file> -d "<color_dict>" -l 0.05
-# example dictionary: "{'unsure':'#009900', 'aberrant_positive_columnar':'blue', 'unspecific_stain':[255,180,0]}"
+# python xml_from_pml_tiles.py -p <pml_file> -x <input_xml_file> -s <slide_file> -o <output_xml_file> -d <color_dict> -l 0.05
+# example dictionary: {'unsure':'#009900', 'aberrant_positive_columnar':'blue', 'unspecific_stain':[255,180,0]}
 
 import re
 import argparse
 from slidl.slide import Slide
+import ast
 
 
 # useful functions
@@ -50,7 +51,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('-p',help='pml input filename')
 parser.add_argument('-x',help='xml input filename')
 parser.add_argument('-s',help='slide input filename', default=None)
-parser.add_argument('-d',help='string of dictionary with labels as keys and rgb or hex or color names as values',type=str)
+parser.add_argument('-d',help='dictionary with labels as keys and rgb or hex or color names as values',type=str)
 parser.add_argument('-o',help='xml output filename')
 parser.add_argument('-l',help='label threshold (how big of a minimal area should the label annotation cover?), floating number between 0 and 1', default=0.01, type=float)
 #parser.add_argument('-t',help='tissue threshold (how big of a minimal area should the tissue annotation cover?), floating number between 0 and 1', default=0.01, type=float)
@@ -63,7 +64,7 @@ else:
 	slidl_slide = Slide(args.p, newSlideFilePath=args.s)
 
 # make dictionary of hex code
-col_dict_messy = eval(args.d)
+col_dict_messy = ast.literal_eval(args.d)
 col_dict_clean = {}
 for key,value in col_dict_messy.items():
     #print(key,value,type(value))

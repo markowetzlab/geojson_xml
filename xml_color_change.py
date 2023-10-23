@@ -1,13 +1,14 @@
 # change colors of xml file according to input dictionary
 # if annotation label not in dictionary, then color will be yellow [244,250,88]
 # python xml_color_change.py -i <input_filename> -o <output_filename> -d <color_dictionary>
-# e.g., xml_color_change.py -i example.geojson -o example_colored.geojson -d "{'unsure':'#009900', 'aberrant_positive_columnar':'blue', 'unspecific_stain':[255,180,0]}"
+# e.g., xml_color_change.py -i example.geojson -o example_colored.geojson -d {'unsure':'#009900', 'aberrant_positive_columnar':'blue', 'unspecific_stain':[255,180,0]}
 # if hexcode, then it needs to start with '#'
 # if color name, then it needs to be one of those: ['sky_blue', 'blue', 'turquoise', 'aquamarine', 'azure', 'dark_pink', 'red', 'fuchsia', 'apricot', 'dark_red', 'pink', 'apple_green', 'green', 'dark_green', 'amber', 'banana', 'blond', 'brown_orange', 'green_grey', 'blue_gray', 'blue_green', 'blue_violet', 'lavender', 'almond', 'gray', 'black', 'neon_green', 'neon_lilac', 'neon_orange', 'neon_pink']
 
 import argparse
 import re
 import xmltodict
+import ast
 
 # useful functions
 class DictError(Exception):
@@ -54,11 +55,11 @@ def name2hex(colorname): # colorname example: 'blue' # color name must be in col
 parser = argparse.ArgumentParser()
 parser.add_argument('-i',help='geojson input filename',type=str)
 parser.add_argument('-o',help='colored geojson output filename', type=str)
-parser.add_argument('-d',help='string of dictionary with labels as keys and rgb or hex or color names as values',type=str)
+parser.add_argument('-d',help='dictionary with labels as keys and rgb or hex or color names as values',type=str)
 args = parser.parse_args()
 
 # make dictionary of hex code
-col_dict_messy = eval(args.d)
+col_dict_messy = ast.literal_eval(args.d)
 col_dict_clean = {}
 for key,value in col_dict_messy.items():
     #print(key,value,type(value))
