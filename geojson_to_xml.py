@@ -3,6 +3,7 @@
 
 import argparse
 import xmltodict
+import json
 
 # useful functions
 def rgb2hex(rgb_list): # rgb_list example: [255,0,3]
@@ -11,13 +12,19 @@ def rgb2hex(rgb_list): # rgb_list example: [255,0,3]
 
 # read in arguments from command line
 parser = argparse.ArgumentParser()
-parser.add_argument('-i',help='geojson input filename')
-parser.add_argument('-o',help='xml output filename')
+parser.add_argument('-i',help='geojson input filename', type=str)
+parser.add_argument('-o',help='xml output filename', default=None, type=str)
 args = parser.parse_args()
+
+input_filename = args.i
+if args.o is not None:
+    output_filename = args.o
+else:
+    output_filename = input_filename.replace('.geojson','.xml')
 
 # read in geojson file
 f = open(args.i, 'r')
-geojson_dict = eval(f.read())
+geojson_dict = json.load(f)
 
 # make xml from geojson
 geojson_polygons = geojson_dict['features']
@@ -35,8 +42,11 @@ for ind,geojson_polygon in enumerate(geojson_polygons):
         try:
             color = geojson_polygon['properties']['classification']['color']
         except KeyError:
-            color = '#F4FA58'
-    label = geojson_polygon['properties']['classification']['name']
+            color = [255,0,3]
+    try:
+    	label = geojson_polygon['properties']['classification']['name']
+    except:
+    	label = 'tissue'
     group_dict[label] = color
 
     coords_dict = []
@@ -60,9 +70,9 @@ xml = {'ASAP_Annotations':{'Annotations':{'Annotation':xml_polygons},
 xml = xmltodict.unparse(xml, pretty=True)
 
 # save xml file
-f = open(args.o, 'w')
+f = open(output_filename, 'w')
 f.write(xml)
 f.close()
 
 
-print(f'xml file {args.o} generated from geojson file {args.i}')
+print(f'xml file {output_filename} generated from geojson file {input_filename}')
